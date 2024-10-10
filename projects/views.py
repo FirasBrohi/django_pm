@@ -18,12 +18,11 @@ class ProjectListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         query_set = super().get_queryset()
-        where =  {'user_id':self.request.user}
+        where =  {'user_id':self.request.user.id}
         q = self.request.GET.get('q', None)
         if q: 
             where['title__icontains'] = q
-        return query_set.filter(**where)
-    
+        return query_set.filter(**where)  
     
 class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = models.Project
@@ -54,7 +53,7 @@ class ProjectDeleteView(LoginRequiredMixin, DeleteView,UserPassesTestMixin):
     
     def test_func(self):
         return self.get_object().user_id == self.request.user.id
-     
+   
 class TaskCreateView(LoginRequiredMixin, CreateView, UserPassesTestMixin):
     model = models.Task
     fields = ['project', 'description']
