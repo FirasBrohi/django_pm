@@ -10,11 +10,15 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.name
     
+    class Meta:
+        verbose_name = _('Category')
+
+        
 class ProjectStatus(models.IntegerChoices):
-    PENDING = 1,_('pending')
-    COMPLETED = 2,_('completed')
-    POSTPONED = 3,_('postponed')
-    CANCELED = 4,_('canceled')
+    PENDING = 1, _('pending')
+    COMPLETED = 2, _('completed')
+    POSTPONED = 3, _('postponed')
+    CANCELED = 4, _('canceled')
     
 class Project(models.Model):
     title = models.CharField(max_length=255)
@@ -38,7 +42,8 @@ class Task(models.Model):
     def __str__(self) -> str:
         return self.description
     
-
+    class Meta:
+        verbose_name = _("Task")
 
 
 
